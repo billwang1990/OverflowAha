@@ -8,6 +8,7 @@
 
 #import "OverflowAhaTests.h"
 
+
 @implementation OverflowAhaTests
 
 - (void)setUp
@@ -24,9 +25,6 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in OverflowAhaTests");
-}
+
 
 @end
