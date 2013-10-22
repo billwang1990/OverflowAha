@@ -12,9 +12,9 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 
 @implementation StackOverFlowManager
 
--(void)setDelegate:(id<StackOverFlowManagerDelegate>)delegate
+-(void)setDelegate:(id<StackOverflowManagerDelegate>)delegate
 {
-    if (delegate && ![delegate conformsToProtocol:@protocol(StackOverFlowManagerDelegate) ]) {
+    if (delegate && ![delegate conformsToProtocol:@protocol(StackOverflowManagerDelegate) ]) {
         [[NSException exceptionWithName:NSInvalidArgumentException reason:@"delegate object not conform to the delegate protocol" userInfo:nil] raise];
     }
     
@@ -27,9 +27,26 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     [self.communicator searchForQuestionWithTag:[topic tag]];
 }
 
+-(void)fetchBodyForQuestion:(Question *)question{
+    
+    self.questionNeedingBody = question;
+    [self.bodyCommunicator downloadInformationForQuestionWithID:question.questionID];
+}
+
 -(void)searchingForQuestionFailedWithError:(NSError *)error
 {
     [self tellDelegateAboutQuestionSearchError:error];
+}
+
+-(void)fetchingQuestionBodyFailedWithError:(NSError *)error
+{
+    NSDictionary *errorInfo = nil;
+    if (error) {
+        errorInfo = [NSDictionary dictionaryWithObject: error forKey: NSUnderlyingErrorKey];
+    }
+    NSError *reportableError = [NSError errorWithDomain: StackOverflowManagerError code: StackOverflowManagerErrorQuestionBodyFetchCode userInfo:errorInfo];
+    [self.delegate fetchingQuestionBodyFailedWithError: reportableError];
+    self.questionNeedingBody = nil;
     
 }
 
@@ -46,6 +63,13 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     {
         [_delegate didReceiveQuestions:questions];
     }
+}
+
+-(void)receivedQuestionBodyJSON:(NSString *)objectNotation
+{
+    [self.questionBuilder fillInDetailsForQuestion:self.questionNeedingBody fromJSON: objectNotation];
+    [self.delegate bodyReceivedForQuestion: self.questionNeedingBody];
+    self.questionNeedingBody = nil;
 }
 
 -(void)tellDelegateAboutQuestionSearchError:(NSError*)error

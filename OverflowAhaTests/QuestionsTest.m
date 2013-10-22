@@ -26,6 +26,9 @@
     highScore = [[Answer alloc]init];
     highScore.score = 4;
     [question addAnswer: highScore];
+    
+    asker = [[Person alloc]initWithName:@"billwang" andAvatarUrlStr:@"www.baidu.com"];
+    question.asker = asker;
 }
 
 -(void)tearDown
@@ -85,5 +88,11 @@
     STAssertTrue(highIndex < lowIndex, @"高分应该在前面");
     
 }
+
+-(void)testQuestionWasAskedBySomeOne
+{
+    STAssertEqualObjects(question.asker, asker, @"question asker should equal with asker");
+}
+
 
 @end

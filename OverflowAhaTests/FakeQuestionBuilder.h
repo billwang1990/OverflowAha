@@ -15,6 +15,6 @@
 @property (copy) NSString *JSON;
 @property (copy) NSArray  *arrayToReturn;
 @property (copy) NSError  *errorToSet;
-
+@property (strong) Question *questionToFill;
 
 @end

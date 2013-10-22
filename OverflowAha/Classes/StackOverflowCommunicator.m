@@ -15,5 +15,10 @@
     
 }
 
+-(void)downloadInformationForQuestionWithID:(NSInteger)indentifier
+{
+    
+}
+
 @end
 

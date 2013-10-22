@@ -1,13 +1,13 @@
 //
-//  QuestionCreationTest.h
+//  QuestionBuilderTest.h
 //  OverflowAha
 //
-//  Created by niko on 13-10-21.
+//  Created by niko on 13-10-22.
 //  Copyright (c) 2013年 billwang. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface QuestionCreationTest : SenTestCase
+@interface QuestionBuilderTest : SenTestCase
 
 @end

@@ -15,5 +15,6 @@
     Question *question;
     Answer *lowScore;
     Answer *highScore;
+    Person *asker;
 }
 @end

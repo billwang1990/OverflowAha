@@ -12,4 +12,6 @@
 
 -(void)searchForQuestionWithTag:(NSString*)tag;
 
+-(void)downloadInformationForQuestionWithID:(NSInteger)indentifier;
+
 @end
