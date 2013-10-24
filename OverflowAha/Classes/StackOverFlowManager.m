@@ -33,6 +33,12 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     [self.bodyCommunicator downloadInformationForQuestionWithID:question.questionID];
 }
 
+-(void)fetchAnswerForQuestion:(Question *)question
+{
+    self.questionToFill = question;
+    [self.communicator downloadAnswersToQuestionWithID:question.questionID];
+}
+
 -(void)searchingForQuestionFailedWithError:(NSError *)error
 {
     [self tellDelegateAboutQuestionSearchError:error];
@@ -50,6 +56,19 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     
 }
 
+-(void)fetchingAnswersFailedWithError:(NSError *)error{
+    
+    self.questionToFill = nil;
+    
+    NSDictionary *errorInfo = nil;
+    if (error) {
+        errorInfo = [NSDictionary dictionaryWithObject:error forKey:NSUnderlyingErrorKey];
+    }
+    NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError code:StackOverflowManagerErrorAnswerFetchCode userInfo:errorInfo];
+    [self.delegate retrievingAnswersFailedWithError:reportableError];
+}
+
+
 -(void)receivedQuestionsJSON:(NSString *)objectNotation
 {
     NSError *error = nil;
@@ -65,6 +84,20 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     }
 }
 
+-(void)receivedAnswerListJSON:(NSString *)objectNotation{
+    NSError *error = nil;
+    
+    if([self.answerBuilder addAnswersToQuestion:self.questionToFill fromJSON:objectNotation error:&error])
+    {
+        [self.delegate answersReceivedForQuestion:self.questionToFill];
+        self.questionToFill = nil;
+    }
+    else
+    {
+        [self fetchingAnswersFailedWithError:error];
+    }
+    
+}
 -(void)receivedQuestionBodyJSON:(NSString *)objectNotation
 {
     [self.questionBuilder fillInDetailsForQuestion:self.questionNeedingBody fromJSON: objectNotation];
@@ -82,6 +115,10 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError code:StackOverFlowManagerErrorQuestionSearchCode userInfo:errorInfo];
     [_delegate fetchingQuestionsFailedWithError:reportableError];
 
+}
+
+-(void)searchingForQuestionsFailedWithError:(NSError *)error{
+    [self tellDelegateAboutQuestionSearchError: error];
 }
 
 @end

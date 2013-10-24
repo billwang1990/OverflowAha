@@ -11,6 +11,7 @@
 #import "StackOverflowCommunicatorDelegate.h"
 #import "StackOverflowManagerDelegate.h"
 #import "QuestionBuilder.h"
+#import "AnswerBuilder.h"
 #import "Topic.h"
 #import "Question.h"
 
@@ -23,18 +24,30 @@ enum{
 };
 
 @interface StackOverFlowManager : NSObject<StackOverflowCommunicatorDelegate>
+{
+    NSInteger topicFailureErrorCode;
+    NSInteger bodyFailureErrorCode;
+    NSInteger answerFailureErrorCode;
+}
 
 @property (nonatomic, weak) id<StackOverflowManagerDelegate> delegate;
 
 @property (nonatomic) StackOverflowCommunicator *communicator;
 @property (nonatomic) StackOverflowCommunicator *bodyCommunicator;
 @property (nonatomic) QuestionBuilder *questionBuilder;
+@property (nonatomic) AnswerBuilder  *answerBuilder;
 @property (nonatomic) Question *questionNeedingBody;
+@property (nonatomic) Question *questionToFill;
+
 
 
 -(void)fetchQuestionOnTopic:(Topic*)topic;
 
-- (void)fetchBodyForQuestion: (Question *)question;
+-(void)fetchBodyForQuestion:(Question *)question;
+
+-(void)fetchAnswerForQuestion:(Question *)question;
+
+- (NSInteger)topicFailureErrorCode;
 
 
 @end

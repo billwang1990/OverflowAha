@@ -15,11 +15,16 @@
 
 -(void)fetchingQuestionBodyFailedWithError:(NSError*)error;
 
+- (void)retrievingAnswersFailedWithError: (NSError *)error;
+
 - (void)didReceiveQuestions:(NSArray *)questions;
 
 /**
  * The manager got the body of a question.
  */
 - (void)bodyReceivedForQuestion: (Question *)question;
+
+- (void)answersReceivedForQuestion: (Question *)question;
+
 
 @end

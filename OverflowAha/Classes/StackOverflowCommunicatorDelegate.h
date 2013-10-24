@@ -15,7 +15,11 @@
  */
 - (void)fetchingQuestionBodyFailedWithError: (NSError *)error;
 
--(void)searchingForQuestionFailedWithError:(NSError*)error;
+-(void)fetchingAnswersFailedWithError:(NSError*)error;
+
+-(void)searchingForQuestionsFailedWithError:(NSError*)error;
+
+-(void)receivedAnswerListJSON:(NSString*)objectNotation;
 
 -(void)receivedQuestionsJSON:(NSString*)objectNotation;
 

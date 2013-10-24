@@ -82,14 +82,14 @@
 
 -(void)testErrorReturnedToDelegateIsNotNotifiedByCommunicator
 {
-    [mgr searchingForQuestionFailedWithError: underlyingError];
+    [mgr searchingForQuestionsFailedWithError: underlyingError];
     
     STAssertFalse(underlyingError == [delegate fetchError], @"Error should be at the correct level of abstraction");
 }
 
 -(void)testErrorReturnedToDelegateDocumentsUnderlyingError
 {   
-    [mgr searchingForQuestionFailedWithError: underlyingError];
+    [mgr searchingForQuestionsFailedWithError: underlyingError];
 
     STAssertEqualObjects([[[delegate fetchError] userInfo] objectForKey: NSUnderlyingErrorKey], underlyingError, @"the underlying error should be available to client code");
 }
@@ -173,9 +173,5 @@
     
     STAssertEqualObjects(builder.questionToFill, questionToFetch, @"The question should have been passe to the builder");
 }
-
-
-
-
 
 @end

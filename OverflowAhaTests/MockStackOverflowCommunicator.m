@@ -12,6 +12,8 @@
 {
     BOOL   wasAskedToFetchQuestions;
     BOOL wasAskedToFetchBody;
+    NSInteger questionID;
+
 }
 
 -(void)searchForQuestionWithTag:(NSString *)tag
@@ -32,5 +34,16 @@
 {
     wasAskedToFetchBody = YES;
 }
+
+-(void)downloadAnswersToQuestionWithID:(NSInteger)identifier
+{
+    questionID = identifier;
+}
+
+-(NSInteger)askedForAnswersToQuestionID
+{
+    return questionID;
+}
+
 
 @end

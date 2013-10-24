@@ -31,4 +31,10 @@
     self.bodyQuestion = question;
 }
 
+-(void)retrievingAnswersFailedWithError:(NSError *)error
+{
+    self.fetchError = error;
+}
+
+
 @end
