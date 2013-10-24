@@ -14,6 +14,7 @@
 @property (nonatomic) NSError *fetchError;
 @property (nonatomic) NSArray *receicedQuestions;
 @property (nonatomic) Question *bodyQuestion;
+@property (nonatomic) Question *successQuestion;
 
 @end
 

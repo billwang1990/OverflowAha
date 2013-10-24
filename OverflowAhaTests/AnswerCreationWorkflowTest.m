@@ -34,6 +34,17 @@
     
 }
 
+-(void)tearDown
+{
+    manager = nil;
+    communicator = nil;
+    delegate = nil;
+    answerBuilder = nil;
+    question = nil;
+    error = nil;
+}
+
+
 -(void)testAskingForAnswersMeansCommunicationWithSite
 {
     [manager fetchAnswerForQuestion:question];
@@ -61,5 +72,34 @@
     
     STAssertEqualObjects([answerBuilder receivedJSON], @"Fake JSON", @"Manager must pass response to builder to get answers constructed");
 }
+
+-(void)testQuestionPassedToAnswerBuilder
+{
+    manager.questionToFill = question;
+    [manager receivedAnswerListJSON:@"Fake JSON"];
+    
+    STAssertEqualObjects(answerBuilder.questionToFill, question, @"Manager must pass question to answer builder");
+}
+
+-(void)testManagerNotifiesDelegateWhenAnswersAdded
+{
+    answerBuilder.successful = YES;
+    manager.questionToFill = question;
+    
+    [manager receivedAnswerListJSON:@"Fake JSON"];
+    
+    STAssertEqualObjects(delegate.successQuestion, question, @"Manager should call the delegate method");
+}
+
+-(void)testManagerNotifiesDelegateWhenAnswersNotAdded
+{
+    answerBuilder.successful = NO;
+    answerBuilder.error = error;
+    
+    [manager receivedAnswerListJSON:@"Fake JSON"];
+    
+    STAssertEqualObjects([[delegate.fetchError userInfo] objectForKey:NSUnderlyingErrorKey], error, @"Manager should pass an error on to the delegate");
+}
+
 
 @end

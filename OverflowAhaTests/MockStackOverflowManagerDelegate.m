@@ -37,4 +37,9 @@
 }
 
 
+-(void)answersReceivedForQuestion:(Question *)question
+{
+    self.successQuestion = question;
+}
+
 @end

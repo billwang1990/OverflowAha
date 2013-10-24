@@ -17,7 +17,6 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     if (delegate && ![delegate conformsToProtocol:@protocol(StackOverflowManagerDelegate) ]) {
         [[NSException exceptionWithName:NSInvalidArgumentException reason:@"delegate object not conform to the delegate protocol" userInfo:nil] raise];
     }
-    
     _delegate = delegate;
     
 }
@@ -39,6 +38,7 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     [self.communicator downloadAnswersToQuestionWithID:question.questionID];
 }
 
+#pragma mark fetch error
 -(void)searchingForQuestionFailedWithError:(NSError *)error
 {
     [self tellDelegateAboutQuestionSearchError:error];
@@ -52,6 +52,7 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     }
     NSError *reportableError = [NSError errorWithDomain: StackOverflowManagerError code: StackOverflowManagerErrorQuestionBodyFetchCode userInfo:errorInfo];
     [self.delegate fetchingQuestionBodyFailedWithError: reportableError];
+    
     self.questionNeedingBody = nil;
     
 }
@@ -69,6 +70,11 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 }
 
 
+-(void)searchingForQuestionsFailedWithError:(NSError *)error{
+    [self tellDelegateAboutQuestionSearchError: error];
+}
+
+#pragma mark ReceivedData successful
 -(void)receivedQuestionsJSON:(NSString *)objectNotation
 {
     NSError *error = nil;
@@ -117,8 +123,5 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 
 }
 
--(void)searchingForQuestionsFailedWithError:(NSError *)error{
-    [self tellDelegateAboutQuestionSearchError: error];
-}
 
 @end

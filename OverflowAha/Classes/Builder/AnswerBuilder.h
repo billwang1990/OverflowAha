@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class  Question;
+
+extern NSString *AnswerBuilderErrorDomain;
+
+enum {
+    AnswerBuilderErrorInvalidJSONError,
+    AnswerBuilderErrorMissingDataError,
+};
+
 
 @interface AnswerBuilder : NSObject
 

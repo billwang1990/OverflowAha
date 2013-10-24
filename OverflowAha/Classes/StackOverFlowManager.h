@@ -47,7 +47,7 @@ enum{
 
 -(void)fetchAnswerForQuestion:(Question *)question;
 
-- (NSInteger)topicFailureErrorCode;
+//- (NSInteger)topicFailureErrorCode;
 
 
 @end

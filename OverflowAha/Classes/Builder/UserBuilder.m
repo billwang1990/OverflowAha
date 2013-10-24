@@ -14,8 +14,8 @@
 +(Person *)personFromDictionary:(NSDictionary *)ownerValues
 {
     NSString *name = [ownerValues objectForKey: @"display_name"];
-    NSString *avatarURL = [NSString stringWithFormat: @"http://www.gravatar.com/avatar/%@", [ownerValues objectForKey: @"email_hash"]];
-    Person *owner = [[Person alloc] initWithName: name andAvatarUrlStr: avatarURL];
+    NSString *avatarURLStr = [NSString stringWithFormat: @"http://www.gravatar.com/avatar/%@", [ownerValues objectForKey: @"email_hash"]];
+    Person *owner = [[Person alloc] initWithName: name andAvatarUrlStr: avatarURLStr];
     return owner;
     
 }
