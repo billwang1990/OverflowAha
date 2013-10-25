@@ -23,6 +23,15 @@
     topic = nil;
 }
 
+-(void)testTopicCanInitWithNameAndTag
+{
+    Topic *tmp = [[Topic alloc]initWithName:@"cocoa" withTag:@"cocoa"];
+    
+    STAssertEqualObjects(tmp.name, @"cocoa", @"tmp的name属性应该与给定值相等");
+    STAssertEqualObjects(tmp.tag, @"cocoa", @"tmp的tag属性应该与给定值相等");
+}
+
+
 -(void)testThatTopicExists
 {
     STAssertNotNil(topic, @"创建实例失败");

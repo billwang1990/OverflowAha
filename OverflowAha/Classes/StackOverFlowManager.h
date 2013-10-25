@@ -39,15 +39,10 @@ enum{
 @property (nonatomic) Question *questionNeedingBody;
 @property (nonatomic) Question *questionToFill;
 
-
-
 -(void)fetchQuestionOnTopic:(Topic*)topic;
 
 -(void)fetchBodyForQuestion:(Question *)question;
 
 -(void)fetchAnswerForQuestion:(Question *)question;
-
-//- (NSInteger)topicFailureErrorCode;
-
 
 @end

@@ -15,17 +15,19 @@
 }
 
 - (void)launchConnectionForRequest: (NSURLRequest *)request  {
+    
     [self cancelAndDiscardURLConnection];
     fetchingConnection = [NSURLConnection connectionWithRequest: request delegate: self];
     
 }
 
 - (void)fetchContentAtURL:(NSURL *)url errorHandler:(void (^)(NSError *))errorBlock successHandler:(void (^)(NSString *))successBlock {
+    
     fetchingURL = url;
     errorHandler = [errorBlock copy];
     successHandler = [successBlock copy];
-    NSURLRequest *request = [NSURLRequest requestWithURL: fetchingURL];
     
+    NSURLRequest *request = [NSURLRequest requestWithURL: fetchingURL];
     [self launchConnectionForRequest: request];
 
 }
@@ -52,7 +54,8 @@
                }
              successHandler: ^(NSString *objectNotation) {
                  [_delegate receivedQuestionBodyJSON: objectNotation];
-             }];}
+             }];
+}
 
 -(void)downloadAnswersToQuestionWithID:(NSInteger)identifier
 {
@@ -65,10 +68,6 @@
                  [_delegate receivedAnswerListJSON: objectNotation];
              }];
 
-}
-
--(void)fetchBodyForQuestion:(NSInteger)identifier
-{
 }
 
 -(void)cancelAndDiscardURLConnection

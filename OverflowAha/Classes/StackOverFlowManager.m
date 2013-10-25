@@ -15,7 +15,8 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 -(void)setDelegate:(id<StackOverflowManagerDelegate>)delegate
 {
     if (delegate && ![delegate conformsToProtocol:@protocol(StackOverflowManagerDelegate) ]) {
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"delegate object not conform to the delegate protocol" userInfo:nil] raise];
+        
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Delegate object not conform to the delegate protocol" userInfo:nil] raise];
     }
     _delegate = delegate;
     
@@ -54,7 +55,6 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     [self.delegate fetchingQuestionBodyFailedWithError: reportableError];
     
     self.questionNeedingBody = nil;
-    
 }
 
 -(void)fetchingAnswersFailedWithError:(NSError *)error{
@@ -68,7 +68,6 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError code:StackOverflowManagerErrorAnswerFetchCode userInfo:errorInfo];
     [self.delegate retrievingAnswersFailedWithError:reportableError];
 }
-
 
 -(void)searchingForQuestionsFailedWithError:(NSError *)error{
     [self tellDelegateAboutQuestionSearchError: error];
@@ -104,6 +103,7 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     }
     
 }
+
 -(void)receivedQuestionBodyJSON:(NSString *)objectNotation
 {
     [self.questionBuilder fillInDetailsForQuestion:self.questionNeedingBody fromJSON: objectNotation];
@@ -113,14 +113,13 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 
 -(void)tellDelegateAboutQuestionSearchError:(NSError*)error
 {
-       NSDictionary *errorInfo = nil;
+    NSDictionary *errorInfo = nil;
     if (error) {
         errorInfo = [NSDictionary dictionaryWithObject:error forKey:NSUnderlyingErrorKey];
     }
     
     NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError code:StackOverFlowManagerErrorQuestionSearchCode userInfo:errorInfo];
     [_delegate fetchingQuestionsFailedWithError:reportableError];
-
 }
 
 

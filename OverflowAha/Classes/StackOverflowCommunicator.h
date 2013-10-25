@@ -25,13 +25,24 @@ extern NSString *StackOverflowCommunicatorErrorDomain;
 
 @property (nonatomic, weak) id<StackOverflowCommunicatorDelegate> delegate;
 
+/**
+ * 根据tag搜索question的列表
+ */
 -(void)searchForQuestionWithTag:(NSString*)tag;
 
+/**
+ * 根据questionID下载其相关信息
+ */
 -(void)downloadInformationForQuestionWithID:(NSInteger)indentifier;
 
+/**
+ *根据questionID下载answer信息
+ */
 -(void)downloadAnswersToQuestionWithID:(NSInteger)identifier;
 
--(void)fetchBodyForQuestion:(NSInteger)identifier;
+/**
+ * 获取question的具体内容
+ */
 
 -(void)cancelAndDiscardURLConnection;
 

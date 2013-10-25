@@ -65,7 +65,6 @@
     
     question.score = 42;
     STAssertEquals(question.score, 42, @"question's score 应该等于42");
-
 }
 
 -(void)testQuestionCanAddAnswer

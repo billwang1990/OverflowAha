@@ -39,7 +39,6 @@
     
     mgr.questionBuilder = builder;
     
-    
     questionToFetch = [[Question alloc]init];
     questionToFetch.questionID = 1234;
     
@@ -156,7 +155,6 @@
     [mgr fetchingQuestionBodyFailedWithError:underlyingError];
     
     STAssertNotNil([[[delegate fetchError] userInfo] objectForKey:NSUnderlyingErrorKey], @"delegate should have found out about this error");
-    
 }
 
 -(void)testManagerPassesRetrievedQuestionBodyToQuestionBuilder
